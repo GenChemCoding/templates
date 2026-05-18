@@ -1,0 +1,65 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.text as txt
+import matplotlib.font_manager as fm
+from matplotlib.textpath import TextToPath
+from matplotlib.patches import Circle
+
+fig, ax = plt.subplots()
+
+ttp = TextToPath()
+
+ax.set_axis_off()
+ax.set_xlim(-2,2)
+ax.set_ylim(-2,2)
+ax.autoscale(False)
+ax.set_aspect('equal')
+
+fp = fm.FontProperties(size='32')
+t = txt.Text(text="Si", fontproperties=fp, verticalalignment='center', horizontalalignment='center', bbox = dict( visible=False, color='grey'))
+
+ax.add_artist(t)
+
+fig.draw_without_rendering()
+
+bbox = t.get_window_extent()
+
+w, h, de = ttp.get_text_width_height_descent("Si", fp, False)
+d = h-de
+
+dpix = d*fig.dpi/72
+
+wp = bbox.width
+hp = bbox.height
+
+inv = ax.transData.inverted()
+
+yd0 = np.abs(inv.transform((0,0))[1])
+d0 = np.abs(inv.transform((0, dpix))[1])
+
+dc = np.abs(d0-yd0)
+
+b_points = bbox.get_points()
+
+bx0, by0 = inv.transform((b_points[0][0],b_points[0][1]))
+
+bx1, by1 =inv.transform((b_points[1][0],b_points[1][1]))
+
+hm = np.abs(np.abs(bx1)-np.abs(bx0))
+vm = np.abs(np.abs(by1)-np.abs(by0))
+
+circle = Circle((hm, by1+np.abs(0.2-dc)), radius=0.04, fill=True, color='black')
+ax.add_patch(circle)
+
+circle = Circle((hm, by0-np.abs(0.2)+np.abs(0.2-dc)-0.04), radius=0.04, fill=True, color='black')
+ax.add_patch(circle)
+
+circle = Circle((bx1+np.abs(0.2-dc), vm), radius=0.04, fill=True, color='black')
+ax.add_patch(circle)
+
+circle = Circle((bx0-np.abs(0.2-dc), vm), radius=0.04, fill=True, color='black')
+ax.add_patch(circle)
+
+
+
+plt.show()
