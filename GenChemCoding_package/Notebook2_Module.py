@@ -82,3 +82,13 @@ def create_bohr_model(atom):
   plt.show()
 atom = 'Cs'#@param
 create_bohr_model(atom)
+
+def determine_functional_group(smiles):
+  found_groups = []
+  for string, group_name in functional_group_dict.items():
+    if string in smiles:
+      found_groups.append(group_name)
+  if found_groups:
+    return found_groups
+  else:
+    return 'No functional groups detected'
