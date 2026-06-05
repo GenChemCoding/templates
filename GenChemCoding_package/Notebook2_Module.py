@@ -83,6 +83,7 @@ def create_bohr_model(atom):
 atom = 'Cs'#@param
 create_bohr_model(atom)
 
+
 def determine_functional_group(smiles):
   found_groups = []
   for string, group_name in functional_group_dict.items():
@@ -92,3 +93,4 @@ def determine_functional_group(smiles):
     return found_groups
   else:
     return 'No functional groups detected'
+  # Corrected by Gemini
