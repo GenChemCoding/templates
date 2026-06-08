@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+GenChemCoding_package/Notebook2_Module.py
+GenChemCoding_package/Notebook5_Module.py
+GenChemCoding_package/__init__.py
+GenChemCoding_package.egg-info/PKG-INFO
+GenChemCoding_package.egg-info/SOURCES.txt
+GenChemCoding_package.egg-info/dependency_links.txt
+GenChemCoding_package.egg-info/top_level.txt
